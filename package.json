@@ -1,7 +1,7 @@
 {
   "name": "combine-actions",
   "version": "1.0.0",
-  "description": "setting up a simple reducer for redux now takes less time",
+  "description": "combining related actions",
   "main": "src/index.js",
   "files": [
     "src"
@@ -11,14 +11,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/benjmac/redux-iterator.git"
+    "url": "https://github.com/benjmac/combine-actions.git"
   },
-  "homepage": "https://github.com/benjmac/redux-iterator",
+  "homepage": "https://github.com/benjmac/combine-actions",
   "keywords": [
     "redux",
-    "reducer",
+    "combine actions",
     "middleware",
-    "redux-middleware"
+    "redux-middleware",
+    "combine",
+    "actions"
   ],
   "author": "Ben McCain",
   "license": "ISC",
