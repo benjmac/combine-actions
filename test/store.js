@@ -15,7 +15,7 @@ export const NEW_MESSAGE = 'NEW_MESSAGE';
 /* Initial State */
 export const initialState = {
   test: '',
-  messages: [],
+  messages: ['how are you?'],
 };
 
 /* Reducer Function */
@@ -32,10 +32,12 @@ const testReducer = (state = initialState, action) => {
         break;
 
     case GET_MESSAGES:
-      return action.messages;
+        newState.messages = action.messages
+        break
 
     case NEW_MESSAGE:
-      return [...state.messages, action.message];
+        newState.messages = [...state.messages, action.data]
+        break
 
     default:
         return newState;
