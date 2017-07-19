@@ -1,5 +1,7 @@
-const easyReducer = () => (initialState, action) => {
-
+const combineActions = (something) => (store) => next => action => {
+  console.log('other parameter', something);
+  console.log('store parameter', store);
+  next(action);
 }
 
-// export default easyReducer
+export default combineActions;

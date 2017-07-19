@@ -1,5 +1,5 @@
 {
-  "name": "redux-easy-reducer",
+  "name": "combine-actions",
   "version": "1.0.0",
   "description": "setting up a simple reducer for redux now takes less time",
   "main": "src/index.js",

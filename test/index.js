@@ -3,7 +3,7 @@ import chai from 'chai';
 const assert = chai.assert;
 const expect = chai.expect;
 
-describe('redux-iterator', () => {
+describe('combine-actions', () => {
 
   const createAction = (type, data) => {
     return {
@@ -16,7 +16,7 @@ describe('redux-iterator', () => {
 
     afterEach('set store to initial state', () => store.dispatch(createAction(RESET_STATE)));
 
-    it('dispatches array', () => {
+    it('dispatches action to update state', () => {
       const desiredState = {
         test: 'hello world',
       };
