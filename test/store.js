@@ -6,6 +6,8 @@ let test = combineActions('HELLO WORLD');
 /* Action Types */
 export const RESET_STATE = 'RESET_STATE';
 export const TEST = 'TEST';
+export const GET_MESSAGES = 'GET_MESSAGES';
+export const NEW_MESSAGE = 'NEW_MESSAGE';
 
 /* Action Creators */
 
@@ -13,6 +15,7 @@ export const TEST = 'TEST';
 /* Initial State */
 export const initialState = {
   test: '',
+  messages: [],
 };
 
 /* Reducer Function */
@@ -27,6 +30,12 @@ const testReducer = (state = initialState, action) => {
     case RESET_STATE:
         newState = initialState;
         break;
+
+    case GET_MESSAGES:
+      return action.messages;
+
+    case NEW_MESSAGE:
+      return [...state.messages, action.message];
 
     default:
         return newState;
