@@ -4,14 +4,14 @@ import combineActions from '../src/index';
 
 /* Action Types */
 export const RESET_STATE = 'RESET_STATE';
-export const TEST = 'TEST';
 export const GET_MESSAGES = 'GET_MESSAGES';
 export const NEW_MESSAGE = 'NEW_MESSAGE';
+export const GET_ITEMS = 'GET_ITEMS';
+export const NEW_ITEM = 'NEW_ITEM';
 
 
 /* Initial State */
 export const initialState = {
-    test: '',
     messages: ['how are you?'],
     items: {
         soap: 1.99,
@@ -22,30 +22,25 @@ export const initialState = {
 
 /* MiddleWare Created */
 
-const message = combineActions(NEW_MESSAGE, GET_MESSAGES);
-const test = combineActions(TEST, GET_MESSAGES);
+const addMessage = combineActions(NEW_MESSAGE, GET_MESSAGES);
+const addItem = combineActions(NEW_ITEM, GET_ITEMS);
 
 /* Reducer Function */
 const testReducer = (state = initialState, action) => {
     let newState = Object.assign({}, state);
     switch (action.type) {
 
-        case TEST:
-            newState.test = action.payload
-            break;
-
-        case RESET_STATE:
-            newState = initialState;
+        case GET_ITEMS:
+            newState.items = action.items
             break;
 
         case GET_MESSAGES:
             newState.messages = action.messages
             break
 
-        //Shouldn't be needed anymore
-        // case NEW_MESSAGE:
-        //     newState.messages = [...state.messages, action.payload]
-        //     break
+        case RESET_STATE:
+            newState = initialState;
+            break;
 
         default:
             return newState;
@@ -56,8 +51,9 @@ const testReducer = (state = initialState, action) => {
 //store created
 const store = createStore(
     testReducer,
-    applyMiddleware(message,
-        test)
+    applyMiddleware(
+        addMessage,
+        addItem)
 );
 
 export default store;

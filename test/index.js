@@ -1,4 +1,4 @@
-import store, { RESET_STATE, TEST, NEW_MESSAGE } from './store.js';
+import store, { RESET_STATE, NEW_MESSAGE, NEW_ITEM } from './store.js';
 import chai from 'chai';
 const assert = chai.assert;
 const expect = chai.expect;
@@ -34,7 +34,6 @@ describe('combine-actions', () => {
 
     it('dispatches action to update state', () => {
       const desiredState = {
-        test: '',
         messages: ['how are you?', 'New Message'],
         items: {
           soap: 1.99,
@@ -54,16 +53,16 @@ describe('combine-actions', () => {
 
     it('dispatches action to update state', () => {
       const desiredState = {
-        test: '',
-        messages: ['how are you?', 'New Message'],
+        messages: ['how are you?'],
         items: {
           soap: 1.99,
           soda: 1.55,
-          jam: 3.99
+          jam: 3.99,
+          candy: 1.25
         }
       };
 
-      store.dispatch(createAction(NEW_ITEM, 'New Message'));
+      store.dispatch(createAction(NEW_ITEM, {candy: 1.25}));
       assert.deepEqual(store.getState(), desiredState);
     });
   });
