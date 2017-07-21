@@ -1,4 +1,4 @@
-import { GET_MESSAGES, NEW_MESSAGE } from '../test/store.js'
+import { NEW_MESSAGE, GET_MESSAGES } from '../test/store.js'
 
 const combineActions = (mergeAction, finalAction) => store => next => action => {
 
@@ -8,13 +8,17 @@ const combineActions = (mergeAction, finalAction) => store => next => action => 
   //access the name I don't know on the state...
 
   if (action.type === mergeAction) {
-    let name = action.type.split('_')
-    console.log(name);
-    let state = store.getState();
-    let action = {
-      type: finalAction,
-      payload: [ state.something, action.payload ]
-    }
+
+    console.log('action type inside...', action.type);
+    // let name = action.type.split('_').length
+    // console.log('test action type', name);
+    const state = store.getState();
+    // const mergedAction = {
+    //   type: finalAction,
+    //   payload: [ state.something, action.payload ]
+    // }
+    // store.dispatch(mergedAction)
+    next(action);
   }
   else {
     next(action);
