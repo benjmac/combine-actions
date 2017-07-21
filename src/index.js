@@ -1,5 +1,3 @@
-import { NEW_MESSAGE, GET_MESSAGES } from '../test/store.js'
-
 const combineActions = (toAdd, finalAction) => store => next => action => {
 
   //I need to get the state that specific action is looking to upate
@@ -8,16 +6,21 @@ const combineActions = (toAdd, finalAction) => store => next => action => {
   //access the name I don't know on the state...
 
   if (action.type === toAdd) {
+    //check if it's an array or object? What other types would be stored on the state?
+    //strings and numbers?
 
-    console.log('action type inside...', action.type);
-    let name = action.type.split('_').splice(-1)[0].toLowerCase();
-    console.log('test action type', name)
-    // const mergedAction = {
-    //   type: finalAction,
-    //   payload: [ state.something, action.payload ]
-    // }
-    // store.dispatch(mergedAction)
-    next(action);
+
+    const state = store.getState();
+    const prop = finalAction.split('_').slice(-1)[0].toLowerCase();
+    if (Array.isArray(state[prop])) {
+      //key is naming the finalActions last part or name the plural version on what's being added
+      const mergedAction = {
+        type: finalAction,
+        [prop]: [...state[prop], action.payload]
+      }
+      store.dispatch(mergedAction)
+    }
+    else next(action);
   }
   else {
     next(action);

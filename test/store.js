@@ -37,9 +37,10 @@ const testReducer = (state = initialState, action) => {
             newState.messages = action.messages
             break
 
-        case NEW_MESSAGE:
-            newState.messages = [...state.messages, action.payload]
-            break
+        //Shouldn't be needed anymore
+        // case NEW_MESSAGE:
+        //     newState.messages = [...state.messages, action.payload]
+        //     break
 
         default:
             return newState;
