@@ -12,7 +12,7 @@ describe('combine-actions', () => {
     }
   }
 
-  describe('Testing test', () => {
+  describe('Testing Test Case', () => {
 
     afterEach('set store to initial state', () => store.dispatch(createAction(RESET_STATE)));
 
@@ -28,7 +28,7 @@ describe('combine-actions', () => {
 
   });
 
-  describe('Dispatchin a new message', () => {
+  describe('Dispatching a new message, arrays', () => {
 
     afterEach('set store to initial state', () => store.dispatch(createAction(RESET_STATE)));
 
@@ -36,12 +36,36 @@ describe('combine-actions', () => {
       const desiredState = {
         test: '',
         messages: ['how are you?', 'New Message'],
+        items: {
+          soap: 1.99,
+          soda: 1.55,
+          jam: 3.99
+        }
       };
 
       store.dispatch(createAction(NEW_MESSAGE, 'New Message'));
       assert.deepEqual(store.getState(), desiredState);
     });
+  });
 
+  describe('Adding new item to a list, Object', () => {
+
+    afterEach('set store to initial state', () => store.dispatch(createAction(RESET_STATE)));
+
+    it('dispatches action to update state', () => {
+      const desiredState = {
+        test: '',
+        messages: ['how are you?', 'New Message'],
+        items: {
+          soap: 1.99,
+          soda: 1.55,
+          jam: 3.99
+        }
+      };
+
+      store.dispatch(createAction(NEW_ITEM, 'New Message'));
+      assert.deepEqual(store.getState(), desiredState);
+    });
   });
 
   //closing bracket

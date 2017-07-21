@@ -20,7 +20,12 @@ const combineActions = (toAdd, finalAction) => store => next => action => {
       }
       store.dispatch(mergedAction)
     }
-    else next(action);
+    else if (typeof state[prop] === 'object') {
+      //add a key to the object
+    }
+    else {
+      next(action);
+    }
   }
   else {
     next(action);

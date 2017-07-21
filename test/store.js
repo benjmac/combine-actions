@@ -13,6 +13,11 @@ export const NEW_MESSAGE = 'NEW_MESSAGE';
 export const initialState = {
     test: '',
     messages: ['how are you?'],
+    items: {
+        soap: 1.99,
+        soda: 1.55,
+        jam: 3.99
+    }
 };
 
 /* MiddleWare Created */
