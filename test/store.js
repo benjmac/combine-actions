@@ -24,7 +24,7 @@ const testReducer = (state = initialState, action) => {
   switch (action.type) {
 
     case TEST:
-        newState.test = action.data
+        newState.test = action.payload
         break;
 
     case RESET_STATE:
@@ -36,7 +36,7 @@ const testReducer = (state = initialState, action) => {
         break
 
     case NEW_MESSAGE:
-        newState.messages = [...state.messages, action.data]
+        newState.messages = [...state.messages, action.payload]
         break
 
     default:

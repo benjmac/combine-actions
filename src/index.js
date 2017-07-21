@@ -1,3 +1,5 @@
+import { GET_MESSAGES, NEW_MESSAGE } from '../test/store.js'
+
 const combineActions = (mergeAction, finalAction) => store => next => action => {
 
   //I need to get the state that specific action is looking to upate
@@ -6,10 +8,12 @@ const combineActions = (mergeAction, finalAction) => store => next => action => 
   //access the name I don't know on the state...
 
   if (action.type === mergeAction) {
+    let name = action.type.split('_')
+    console.log(name);
     let state = store.getState();
     let action = {
       type: finalAction,
-      payload: 'something'
+      payload: [ state.something, action.payload ]
     }
   }
   else {

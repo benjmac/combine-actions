@@ -5,10 +5,10 @@ const expect = chai.expect;
 
 describe('combine-actions', () => {
 
-  const createAction = (type, data) => {
+  const createAction = (type, payload) => {
     return {
       type,
-      data,
+      payload,
     }
   }
 
@@ -38,7 +38,6 @@ describe('combine-actions', () => {
         messages: ['how are you?', 'New Message'],
       };
 
-      console.log('testing here...', createAction(NEW_MESSAGE, 'New Message'));
       store.dispatch(createAction(NEW_MESSAGE, 'New Message'));
       assert.deepEqual(store.getState(), desiredState);
     });
