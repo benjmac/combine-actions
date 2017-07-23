@@ -21,8 +21,8 @@ export const initialState = {
 };
 
 /* MiddleWare Created */
-const addMessage = combineActions(NEW_MESSAGE, GET_MESSAGES);
-const addItem = combineActions(NEW_ITEM, GET_ITEMS);
+const addMessage = combineActions(NEW_MESSAGE, GET_MESSAGES, 'messages');
+const addItem = combineActions(NEW_ITEM, GET_ITEMS, 'items');
 
 /* Reducer Function */
 const testReducer = (state = initialState, action) => {

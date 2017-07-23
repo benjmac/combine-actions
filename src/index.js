@@ -1,4 +1,4 @@
-const combineActions = (toAdd, finalAction) => store => next => action => {
+const combineActions = (toAdd, finalAction, stateProp) => store => next => action => {
 
   if (action.type === toAdd) {
     //check if it's an array or object? What other types would be stored on the state?
@@ -8,14 +8,14 @@ const combineActions = (toAdd, finalAction) => store => next => action => {
       type: finalAction
     }
     const state = store.getState();
-    const prop = finalAction.split('_').slice(-1)[0].toLowerCase();
 
-    if (Array.isArray(state[prop])) {
-      mergedAction[prop] = [...state[prop], action.payload];
+    if (Array.isArray(state[stateProp])) {
+      mergedAction[stateProp] = [...state[stateProp], action.payload];
       store.dispatch(mergedAction)
     }
-    else if (typeof state[prop] === 'object') {
-      mergedAction[prop] = Object.assign({}, state[prop], action.payload);
+    //have a not null test here
+    else if (typeof state[stateProp] === 'object' && state[stateProp] !== null) {
+      mergedAction[stateProp] = Object.assign({}, state[stateProp], action.payload);
       store.dispatch(mergedAction)
     }
     else {
