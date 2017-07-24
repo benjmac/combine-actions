@@ -6,13 +6,11 @@ const combineActions = (toAdd, finalAction, stateProp) => store => next => actio
     //number, can't specify what type of calculation you'd want to make
     //strings just don't make sense...
 
-    //should work with combineReducers
-
     const mergedAction = {
       type: finalAction
     }
     const state = store.getState();
-
+    //first checks if state has the initial property we are looking to update
     if (state[stateProp]) {
       if (Array.isArray(state[stateProp])) {
         mergedAction[stateProp] = [...state[stateProp], action.payload];
@@ -28,6 +26,8 @@ const combineActions = (toAdd, finalAction, stateProp) => store => next => actio
         next(action);
       }
     }
+    //here it assumes that the state is nested due to a combine reducer
+    //anything we could do to no waste time with this
     else {
       for (var key in state) {
         if (state[key][stateProp]) {

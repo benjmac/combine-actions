@@ -53,7 +53,7 @@ const reducer = (state = initialState, action) => {
 
 //store created
 const store = createStore(
-    reducer,
+    combineReducers({reducer}),
     applyMiddleware(
         addMessage,
         addItem)

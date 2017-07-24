@@ -14,6 +14,15 @@ describe('combine-actions', () => {
     }
   }
 
+  describe('Testing combineActions is a function', () => {
+
+    it('Confirm it is a function', () => {
+      assert.typeOf(combineActions, 'function');
+      assert.strictEqual(combineActions.length, 3);
+    });
+  });
+
+
   describe('Adding a new message to an Array of messages', () => {
 
     afterEach('set store to initial state', () => store.dispatch(createAction(RESET_STATE)));
@@ -29,7 +38,7 @@ describe('combine-actions', () => {
       };
       //send whatever you want to add to the existing array
       store.dispatch(createAction(NEW_MESSAGE, 'New Message'));
-      assert.deepEqual(store.getState(), desiredState);
+      assert.deepEqual(store.getState().reducer, desiredState);
     });
   });
 
@@ -49,10 +58,10 @@ describe('combine-actions', () => {
       };
       //send object of what you want to add to the existing object
       store.dispatch(createAction(NEW_ITEM, { candy: 1.25 }));
-      assert.deepEqual(store.getState(), desiredState);
+      assert.deepEqual(store.getState().reducer, desiredState);
     });
 
-    xit('dispatches two actions to update state', () => {
+    it('dispatches two actions to update state', () => {
       const desiredState = {
         reducer: {
           messages: ['how are you?'],
@@ -69,7 +78,6 @@ describe('combine-actions', () => {
       store.dispatch(createAction(NEW_ITEM, { juice: 1.05 }));
       store.dispatch(createAction(NEW_ITEM, { cheese: 3.56 }));
       assert.deepEqual(store.getState(), desiredState);
-      // console.log(store.getState());
     });
 
   });
