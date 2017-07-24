@@ -1,6 +1,8 @@
 Is meant to create a link between two pieces of state, to clean up the reducer of unnecessary cases.
 Also, you can visually connect those two actions, making it easier to follow the flow of the code when others are reading.
 
+//action creator must have action.payload...
+
 Of course this isn't for all instances
 It assumes you will be wanting to add it to the same type of the original
 example, messages is an array, a new message will be added to that array.

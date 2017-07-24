@@ -3,6 +3,10 @@ const combineActions = (toAdd, finalAction, stateProp) => store => next => actio
   if (action.type === toAdd) {
     //check if it's an array or object? What other types would be stored on the state?
     //strings and numbers?
+    //number, can't specify what type of calculation you'd want to make
+    //strings just don't make sense...
+
+    //should work with combineReducers
 
     const mergedAction = {
       type: finalAction

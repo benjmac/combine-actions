@@ -1,5 +1,5 @@
 {
-  "name": "combine-actions",
+  "name": "redux-action-combiner",
   "version": "1.0.0",
   "description": "combining related actions",
   "main": "src/index.js",
@@ -11,16 +11,20 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/benjmac/combine-actions.git"
+    "url": "https://github.com/benjmac/redux-action-combiner.git"
   },
-  "homepage": "https://github.com/benjmac/combine-actions",
+  "homepage": "https://github.com/benjmac/redux-action-combiner",
   "keywords": [
     "redux",
     "combine actions",
     "middleware",
     "redux-middleware",
     "combine",
-    "actions"
+    "actions",
+    "react-redux",
+    "arrays",
+    "objects",
+    "link state"
   ],
   "author": "Ben McCain",
   "license": "ISC",
