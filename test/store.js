@@ -20,9 +20,14 @@ export const initialState = {
     }
 };
 
+/* State Properties */
+//Constants created to avoid typos, like with action types
+const messages = 'messages';
+const items = 'items';
+
 /* MiddleWare Created */
-const addMessage = combineActions(NEW_MESSAGE, GET_MESSAGES, 'messages');
-const addItem = combineActions(NEW_ITEM, GET_ITEMS, 'items');
+const addMessage = combineActions(NEW_MESSAGE, GET_MESSAGES, messages);
+const addItem = combineActions(NEW_ITEM, GET_ITEMS, items);
 
 /* Reducer Function */
 const testReducer = (state = initialState, action) => {
@@ -30,11 +35,11 @@ const testReducer = (state = initialState, action) => {
     switch (action.type) {
 
         case GET_ITEMS:
-            newState.items = action.items
+            newState.items = action[items]
             break;
 
         case GET_MESSAGES:
-            newState.messages = action.messages
+            newState.messages = action[messages]
             break
 
         case RESET_STATE:
