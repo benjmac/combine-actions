@@ -13,18 +13,38 @@ const combineActions = (toAdd, finalAction, stateProp) => store => next => actio
     }
     const state = store.getState();
 
-    if (Array.isArray(state[stateProp])) {
-      mergedAction[stateProp] = [...state[stateProp], action.payload];
-      store.dispatch(mergedAction)
-    }
-    //have a not null test here
-    //as if we're updating an object, should have initial state of empty obj?
-    else if (typeof state[stateProp] === 'object' && state[stateProp] !== null) {
-      mergedAction[stateProp] = Object.assign({}, state[stateProp], action.payload);
-      store.dispatch(mergedAction)
+    if (state[stateProp]) {
+      if (Array.isArray(state[stateProp])) {
+        mergedAction[stateProp] = [...state[stateProp], action.payload];
+        store.dispatch(mergedAction)
+      }
+      //have a not null test here
+      //as if we're updating an object, should have initial state of empty obj?
+      else if (typeof state[stateProp] === 'object' && state[stateProp] !== null) {
+        mergedAction[stateProp] = Object.assign({}, state[stateProp], action.payload);
+        store.dispatch(mergedAction)
+      }
+      else {
+        next(action);
+      }
     }
     else {
-      next(action);
+      for (var key in state) {
+        if (state[key][stateProp]) {
+          if (Array.isArray(state[key][stateProp])) {
+            mergedAction[stateProp] = [...state[key][stateProp], action.payload];
+            store.dispatch(mergedAction)
+          }
+          else if (typeof state[key][stateProp] === 'object' && state[key][stateProp] !== null) {
+            mergedAction[stateProp] = Object.assign({}, state[key][stateProp], action.payload);
+            store.dispatch(mergedAction)
+          }
+          else {
+            next(action);
+          }
+
+        }
+      }
     }
   }
   else {
