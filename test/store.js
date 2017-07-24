@@ -59,4 +59,11 @@ const store = createStore(
         addItem)
 );
 
+// const storeWithNestedState = createStore(
+//     combineReducers({reducer}),
+//     applyMiddleware(
+//         addMessage,
+//         addItem)
+// );
+
 export default store;
