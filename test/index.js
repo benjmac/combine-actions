@@ -37,7 +37,7 @@ describe('combine-actions', () => {
         },
         test: null
       };
-      //send whatever you want to add to the existing array
+      //sends value you want to add to the existing array
       store.dispatch(createAction(NEW_MESSAGE, 'New Message'));
       assert.deepEqual(store.getState(), desiredState);
     });
@@ -52,7 +52,7 @@ describe('combine-actions', () => {
         },
         test: null
       };
-      //send whatever you want to add to the existing array
+      //sends values you want to add to the existing array
       store.dispatch(createAction(NEW_MESSAGE, 'Foo'));
       store.dispatch(createAction(NEW_MESSAGE, 'Bar'));
       assert.deepEqual(store.getState(), desiredState);
@@ -74,7 +74,7 @@ describe('combine-actions', () => {
         },
         test: null
       };
-      //send object of what you want to add to the existing object
+      //sends object of what you want to add to the existing object
       store.dispatch(createAction(NEW_ITEM, { candy: 1.25 }));
       assert.deepEqual(store.getState(), desiredState);
     });
@@ -91,7 +91,7 @@ describe('combine-actions', () => {
         },
         test: null
       };
-      //send object of what you want to add to the existing object
+      //sends objects of what you want to add to the existing object
       store.dispatch(createAction(NEW_ITEM, { juice: 1.05 }));
       store.dispatch(createAction(NEW_ITEM, { cheese: 3.56 }));
       assert.deepEqual(store.getState(), desiredState);

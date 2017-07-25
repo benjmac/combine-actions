@@ -1,5 +1,5 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import combineActions from '../src/index';
+import combine from '../src/index';
 
 
 /* Action Types */
@@ -30,9 +30,9 @@ const items = 'items';
 const test = 'test';
 
 /* MiddleWare Created */
-const addMessage = combineActions(NEW_MESSAGE, GET_MESSAGES, messages);
-const addItem = combineActions(NEW_ITEM, GET_ITEMS, items);
-const nullTest = combineActions(NEW_TEST, GET_TEST, test);
+const addMessage = combine(NEW_MESSAGE, GET_MESSAGES, messages);
+const addItem = combine(NEW_ITEM, GET_ITEMS, items);
+const nullTest = combine(NEW_TEST, GET_TEST, test);
 
 /* Reducer Function */
 const reducer = (state = initialState, action) => {
