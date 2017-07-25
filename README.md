@@ -1,12 +1,19 @@
-Is meant to create a link between two pieces of state, to clean up the reducer of unnecessary cases.
-Also, you can visually connect those two actions, making it easier to follow the flow of the code when others are reading.
+# redux-action-combiner
 
-//action creator must have action.payload...
+## About
+Redux Action Combiner [middleware](https://github.com/reactjs/redux/blob/master/docs/advanced/Middleware.md) is meant to create a link between two pieces of state and to clean up the reducer of unnecessary cases. It also allows you can visually connect two actions, making it easier for you and others to follow the flow of the action creators / state.
 
-Of course this isn't for all instances
-It assumes you will be wanting to add it to the same type of the original
+Redux Action Combiner works seamlessly along side other middeware.
+
+## Why use Redux Action Combiner?
+
+It makes linking and updating state easier and more logical than ever. Of course this isn't for all instances.
+
+It assumes you will be wanting to add to the same type of the original
 example, messages is an array, a new message will be added to that array.
 A list of items in an object, adding a new item to that object.
+
+//action creator must have action.payload...
 
 I could have made it to where it would take multiple things to be combined but, I want it to where only two, as you have to create a specific name for your middleware to then be plugged ins. As in newMessage, newItem etc...
 
