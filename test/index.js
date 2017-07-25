@@ -83,7 +83,7 @@ describe('combine-actions', () => {
       assert.deepEqual(store.getState(), desiredState);
     });
 
-     it('null test, making sure it rejects', () => {
+     it('null test, making sure it rejects an initial state that is null', () => {
       const desiredState = {
         reducer: {
           messages: ['how are you?'],
@@ -95,7 +95,7 @@ describe('combine-actions', () => {
           test: null
         }
       };
-      //send object of what you want to add to the existing object
+      //attempts to add to the existing test, but state remains the same
       store.dispatch(createAction(NEW_TEST, { foo: 'bar' }));
       assert.deepEqual(store.getState(), desiredState);
     });
