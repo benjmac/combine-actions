@@ -1,5 +1,5 @@
 import store, { storeWithNestedState, RESET_STATE, NEW_MESSAGE, NEW_ITEM, NEW_TEST } from './store.js';
-import combineActions from '../src/index.js';
+import combine from '../src/index.js';
 import chai from 'chai';
 const assert = chai.assert;
 const expect = chai.expect;
@@ -17,8 +17,8 @@ describe('combine-actions', () => {
   describe('Testing combineActions is a function', () => {
 
     it('Confirm it is a function', () => {
-      assert.typeOf(combineActions, 'function');
-      assert.strictEqual(combineActions.length, 3);
+      assert.typeOf(combine, 'function');
+      assert.strictEqual(combine.length, 3);
     });
   });
 
@@ -74,7 +74,7 @@ describe('combine-actions', () => {
         },
         test: null
       };
-      //sends object of what you want to add to the existing object
+      //ssends object with key/value to add to the existing object
       store.dispatch(createAction(NEW_ITEM, { candy: 1.25 }));
       assert.deepEqual(store.getState(), desiredState);
     });
@@ -91,22 +91,13 @@ describe('combine-actions', () => {
         },
         test: null
       };
-      //sends objects of what you want to add to the existing object
+      //sends objects with keys/values to add to the existing object
       store.dispatch(createAction(NEW_ITEM, { juice: 1.05 }));
       store.dispatch(createAction(NEW_ITEM, { cheese: 3.56 }));
       assert.deepEqual(store.getState(), desiredState);
     });
 
     it('null test, making sure it rejects an initial state that is null', () => {
-      const desiredState = {
-        messages: ['how are you?'],
-        items: {
-          soap: 1.99,
-          soda: 1.55,
-          jam: 3.99,
-        },
-        test: null
-      };
       //errors loudly instead of function just ignoring any specific values
       try {
         store.dispatch(createAction(NEW_TEST, { foo: 'bar' }));
@@ -118,7 +109,7 @@ describe('combine-actions', () => {
 
   });
 
-  describe('Testing combineActions when there is nested state with combine reducers', () => {
+  describe('Testing combineActions when there is nested state with combineReducers', () => {
 
     afterEach('set store to initial state', () => storeWithNestedState.dispatch(createAction(RESET_STATE)));
 
@@ -134,7 +125,7 @@ describe('combine-actions', () => {
           test: null
         }
       };
-      //send whatever you want to add to the existing array
+      //sends value you want to add to the existing array
       storeWithNestedState.dispatch(createAction(NEW_MESSAGE, 'New Message'));
       assert.deepEqual(storeWithNestedState.getState(), desiredState);
     });
@@ -152,12 +143,9 @@ describe('combine-actions', () => {
           test: null
         }
       };
-      //send object of what you want to add to the existing object
+      //sends objects with keys/values to add to the existing object
       storeWithNestedState.dispatch(createAction(NEW_ITEM, { candy: 1.25 }));
       assert.deepEqual(storeWithNestedState.getState(), desiredState);
     });
-
   });
-
-  //closing bracket
 });
