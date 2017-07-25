@@ -25,9 +25,7 @@ const combineActions = (toAdd, finalAction, stateProp) => store => next => actio
       mergedAction[stateProp] = [...property, action.payload];
       store.dispatch(mergedAction)
     }
-    //have a not null test here
-    //as if we're updating an object, should have initial state of empty obj?
-    else if (property && typeof property === 'object' && property !== null) {
+    else if (property && typeof property === 'object') {
       mergedAction[stateProp] = Object.assign({}, property, action.payload);
       store.dispatch(mergedAction)
     }
