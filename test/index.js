@@ -42,7 +42,7 @@ describe('combine-actions', () => {
       assert.deepEqual(store.getState(), desiredState);
     });
 
-    it('dispatches action to update state', () => {
+    it('dispatches two actions to update state', () => {
       const desiredState = {
         messages: ['how are you?', 'Foo', 'Bar'],
         items: {
@@ -107,9 +107,13 @@ describe('combine-actions', () => {
         },
         test: null
       };
-      //attempts to add to the existing test, but state remains the same
-      store.dispatch(createAction(NEW_TEST, { foo: 'bar' }));
-      assert.deepEqual(store.getState(), desiredState);
+      //errors loudly instead of function just ignoring any specific values
+      try {
+        store.dispatch(createAction(NEW_TEST, { foo: 'bar' }));
+      }
+      catch (err) {
+        expect(err).to.be.an('error');
+      }
     });
 
   });
@@ -118,7 +122,7 @@ describe('combine-actions', () => {
 
     afterEach('set store to initial state', () => storeWithNestedState.dispatch(createAction(RESET_STATE)));
 
-    it('dispatches action to update state', () => {
+    it('dispatches action to update array in state', () => {
       const desiredState = {
         reducer: {
           messages: ['how are you?', 'New Message'],
@@ -135,7 +139,7 @@ describe('combine-actions', () => {
       assert.deepEqual(storeWithNestedState.getState(), desiredState);
     });
 
-    it('dispatches action to update state', () => {
+    it('dispatches action to update object in state', () => {
       const desiredState = {
         reducer: {
           messages: ['how are you?'],

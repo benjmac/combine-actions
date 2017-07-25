@@ -69,6 +69,7 @@ const store = createStore(reducer,
         nullTest)
 );
 
+//store with nested state created
 export const storeWithNestedState = createStore(
     combineReducers({ reducer }),
     applyMiddleware(
