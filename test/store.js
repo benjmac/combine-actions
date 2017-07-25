@@ -62,19 +62,19 @@ const reducer = (state = initialState, action) => {
 }
 
 //store created
-const store = createStore(
-    combineReducers({ reducer }),
+const store = createStore(reducer,
     applyMiddleware(
         addMessage,
         addItem,
         nullTest)
 );
 
-// const storeWithNestedState = createStore(
-//     combineReducers({reducer}),
-//     applyMiddleware(
-//         addMessage,
-//         addItem)
-// );
+export const storeWithNestedState = createStore(
+    combineReducers({ reducer }),
+    applyMiddleware(
+        addMessage,
+        addItem,
+        nullTest)
+);
 
 export default store;

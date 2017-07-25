@@ -1,4 +1,4 @@
-import store, { RESET_STATE, NEW_MESSAGE, NEW_ITEM, NEW_TEST } from './store.js';
+import store, { storeWithNestedState, RESET_STATE, NEW_MESSAGE, NEW_ITEM, NEW_TEST } from './store.js';
 import combineActions from '../src/index.js';
 import chai from 'chai';
 const assert = chai.assert;
@@ -39,7 +39,7 @@ describe('combine-actions', () => {
       };
       //send whatever you want to add to the existing array
       store.dispatch(createAction(NEW_MESSAGE, 'New Message'));
-      assert.deepEqual(store.getState().reducer, desiredState);
+      assert.deepEqual(store.getState(), desiredState);
     });
 
     it('dispatches action to update state', () => {
@@ -55,7 +55,7 @@ describe('combine-actions', () => {
       //send whatever you want to add to the existing array
       store.dispatch(createAction(NEW_MESSAGE, 'Foo'));
       store.dispatch(createAction(NEW_MESSAGE, 'Bar'));
-      assert.deepEqual(store.getState().reducer, desiredState);
+      assert.deepEqual(store.getState(), desiredState);
     });
   });
 
@@ -76,22 +76,20 @@ describe('combine-actions', () => {
       };
       //send object of what you want to add to the existing object
       store.dispatch(createAction(NEW_ITEM, { candy: 1.25 }));
-      assert.deepEqual(store.getState().reducer, desiredState);
+      assert.deepEqual(store.getState(), desiredState);
     });
 
     it('dispatches two actions to update state', () => {
       const desiredState = {
-        reducer: {
-          messages: ['how are you?'],
-          items: {
-            soap: 1.99,
-            soda: 1.55,
-            jam: 3.99,
-            juice: 1.05,
-            cheese: 3.56
-          },
-          test: null
-        }
+        messages: ['how are you?'],
+        items: {
+          soap: 1.99,
+          soda: 1.55,
+          jam: 3.99,
+          juice: 1.05,
+          cheese: 3.56
+        },
+        test: null
       };
       //send object of what you want to add to the existing object
       store.dispatch(createAction(NEW_ITEM, { juice: 1.05 }));
@@ -99,7 +97,45 @@ describe('combine-actions', () => {
       assert.deepEqual(store.getState(), desiredState);
     });
 
-     it('null test, making sure it rejects an initial state that is null', () => {
+    it('null test, making sure it rejects an initial state that is null', () => {
+      const desiredState = {
+        messages: ['how are you?'],
+        items: {
+          soap: 1.99,
+          soda: 1.55,
+          jam: 3.99,
+        },
+        test: null
+      };
+      //attempts to add to the existing test, but state remains the same
+      store.dispatch(createAction(NEW_TEST, { foo: 'bar' }));
+      assert.deepEqual(store.getState(), desiredState);
+    });
+
+  });
+
+  describe('Testing combineActions when there is nested state with combine reducers', () => {
+
+    afterEach('set store to initial state', () => storeWithNestedState.dispatch(createAction(RESET_STATE)));
+
+    it('dispatches action to update state', () => {
+      const desiredState = {
+        reducer: {
+          messages: ['how are you?', 'New Message'],
+          items: {
+            soap: 1.99,
+            soda: 1.55,
+            jam: 3.99
+          },
+          test: null
+        }
+      };
+      //send whatever you want to add to the existing array
+      storeWithNestedState.dispatch(createAction(NEW_MESSAGE, 'New Message'));
+      assert.deepEqual(storeWithNestedState.getState(), desiredState);
+    });
+
+    it('dispatches action to update state', () => {
       const desiredState = {
         reducer: {
           messages: ['how are you?'],
@@ -107,13 +143,14 @@ describe('combine-actions', () => {
             soap: 1.99,
             soda: 1.55,
             jam: 3.99,
+            candy: 1.25
           },
           test: null
         }
       };
-      //attempts to add to the existing test, but state remains the same
-      store.dispatch(createAction(NEW_TEST, { foo: 'bar' }));
-      assert.deepEqual(store.getState(), desiredState);
+      //send object of what you want to add to the existing object
+      storeWithNestedState.dispatch(createAction(NEW_ITEM, { candy: 1.25 }));
+      assert.deepEqual(storeWithNestedState.getState(), desiredState);
     });
 
   });
