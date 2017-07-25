@@ -1,12 +1,14 @@
 const combineActions = (toAdd, finalAction, stateProp) => store => next => action => {
 
-  let property = undefined;
   if (action.type === toAdd) {
 
     const mergedAction = {
       type: finalAction
     }
+
     const state = store.getState();
+    let property = undefined;
+
     if (state[stateProp]) {
       property = state[stateProp];
     }
@@ -19,7 +21,6 @@ const combineActions = (toAdd, finalAction, stateProp) => store => next => actio
       }
     }
     if (property) {
-      //protects if property exists and it's a string, number or boolean
       if (Array.isArray(property)) {
         mergedAction[stateProp] = [...property, action.payload];
         store.dispatch(mergedAction)
