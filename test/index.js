@@ -41,6 +41,22 @@ describe('combine-actions', () => {
       store.dispatch(createAction(NEW_MESSAGE, 'New Message'));
       assert.deepEqual(store.getState().reducer, desiredState);
     });
+
+    it('dispatches action to update state', () => {
+      const desiredState = {
+        messages: ['how are you?', 'Foo', 'Bar'],
+        items: {
+          soap: 1.99,
+          soda: 1.55,
+          jam: 3.99
+        },
+        test: null
+      };
+      //send whatever you want to add to the existing array
+      store.dispatch(createAction(NEW_MESSAGE, 'Foo'));
+      store.dispatch(createAction(NEW_MESSAGE, 'Bar'));
+      assert.deepEqual(store.getState().reducer, desiredState);
+    });
   });
 
   describe('Adding new item to an Object of items', () => {

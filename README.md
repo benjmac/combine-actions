@@ -21,6 +21,10 @@ const addMessage = combineActions(NEW_MESSAGE, GET_MESSAGES, messages);
 The combine actions function takes three arguments. First, the action creator that will be updating/adding a specific element to the state, the second being the action creator that retreieves all of those items. Third, the specific property on the state that you will be wanting to update.
 So you add a NEW_MESSAGE and GET_MESSAGES is capable of retrieving all the messages, by updating the property of 'messages' on the state.
 
+If you send an array, it would add that value to the array, as nested.
+
+It's different with objects. Sending an object with a property and value will only add it to the linked one you're attempting to update.
+
 Need to take into account if you're combining reducers. As that changes the properties that you'd be accessing.
 
 Requires specific initial state of an empty array or object.
