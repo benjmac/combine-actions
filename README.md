@@ -22,3 +22,5 @@ The combine actions function takes three arguments. First, the action creator th
 So you add a NEW_MESSAGE and GET_MESSAGES is capable of retrieving all the messages, by updating the property of 'messages' on the state.
 
 Need to take into account if you're combining reducers. As that changes the properties that you'd be accessing.
+
+Requires specific initial state of an empty array or object.

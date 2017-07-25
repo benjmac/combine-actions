@@ -1,5 +1,7 @@
 const combineActions = (toAdd, finalAction, stateProp) => store => next => action => {
 
+  //tests, think how I can break this...
+  //if the property isn't found?
   if (action.type === toAdd) {
 
     const mergedAction = {
@@ -19,13 +21,13 @@ const combineActions = (toAdd, finalAction, stateProp) => store => next => actio
         }
       }
     }
-    if (Array.isArray(property)) {
+    if (property && Array.isArray(property)) {
       mergedAction[stateProp] = [...property, action.payload];
       store.dispatch(mergedAction)
     }
     //have a not null test here
     //as if we're updating an object, should have initial state of empty obj?
-    else if (typeof property === 'object' && property !== null) {
+    else if (property && typeof property === 'object' && property !== null) {
       mergedAction[stateProp] = Object.assign({}, property, action.payload);
       store.dispatch(mergedAction)
     }

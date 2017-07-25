@@ -8,6 +8,9 @@ export const GET_MESSAGES = 'GET_MESSAGES';
 export const NEW_MESSAGE = 'NEW_MESSAGE';
 export const GET_ITEMS = 'GET_ITEMS';
 export const NEW_ITEM = 'NEW_ITEM';
+export const NEW_TEST = 'NEW_TEST';
+export const GET_TEST = 'GET_TEST';
+
 
 /* Initial State */
 export const initialState = {
@@ -16,17 +19,20 @@ export const initialState = {
         soap: 1.99,
         soda: 1.55,
         jam: 3.99
-    }
+    },
+    test: null
 };
 
 /* State Properties */
 //Constants created to avoid typos, like with action types
 const messages = 'messages';
 const items = 'items';
+const test = 'test';
 
 /* MiddleWare Created */
 const addMessage = combineActions(NEW_MESSAGE, GET_MESSAGES, messages);
 const addItem = combineActions(NEW_ITEM, GET_ITEMS, items);
+const nullTest = combineActions(NEW_TEST, GET_TEST, test);
 
 /* Reducer Function */
 const reducer = (state = initialState, action) => {
@@ -41,6 +47,10 @@ const reducer = (state = initialState, action) => {
             newState.messages = action[messages]
             break
 
+        case GET_TEST:
+            newState.test = action[test]
+            break
+
         case RESET_STATE:
             newState = initialState;
             break;
@@ -53,10 +63,11 @@ const reducer = (state = initialState, action) => {
 
 //store created
 const store = createStore(
-    combineReducers({reducer}),
+    combineReducers({ reducer }),
     applyMiddleware(
         addMessage,
-        addItem)
+        addItem,
+        nullTest)
 );
 
 // const storeWithNestedState = createStore(
