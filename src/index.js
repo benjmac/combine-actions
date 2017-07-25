@@ -19,7 +19,7 @@ const combineActions = (toAdd, finalAction, stateProp) => store => next => actio
       }
     }
     if (property) {
-      //projects if property exists and it's a string, number or boolean
+      //protects if property exists and it's a string, number or boolean
       if (Array.isArray(property)) {
         mergedAction[stateProp] = [...property, action.payload];
         store.dispatch(mergedAction)
