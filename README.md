@@ -12,9 +12,19 @@ state. For example, a new value in an array or a new key and value in an object.
 
 Below are a few examples. Showing how you can add a new message to an array of messages and a new item to an object of items.
 
-//show before and after
+Array Example:
+```
+current state: ['foo', 'bar']
+action payload: 'baz'
+```
 
-//need to show setup
+Object Example:
+```
+current state: { soap: 1.99, soda: 1.55, jam: 3.99 }
+action payload: { milk: 2.25 }
+```
+
+## Installation and Setup
 
 A list of items in an object, adding a new item to that object.
 
