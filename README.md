@@ -10,7 +10,7 @@ Redux Action Combiner works seamlessly along side other middeware.
 It makes linking and updating state easier and more logical than ever. Of course this isn't for all instances. It assumes you will be wanting to add to the same type from the original
 state. For example, a new value in an array or a new key and value to an object.
 
-Below are a few examples showing the current state type and the what would need to be added.
+Below are a few examples showing the current state type and what would need to be added.
 
 Array Example:
 ```
@@ -48,6 +48,7 @@ const messages = 'messages';
 const addMessage = combine(NEW_MESSAGE, ALL_MESSAGES, messages);
 
 // Note: this API requires redux@>=3.1.0
+// Note: initial state needs to be an object or array, depending which type being used
 //will work with nested state from combineReducers as well
 const store = createStore(
   rootReducer,
@@ -57,12 +58,12 @@ const store = createStore(
 
 As seen above the middleware function needs to be invoked with the correct arguments. Then the returned function is plugged into [`applyMiddleware()`](http://redux.js.org/docs/api/applyMiddleware.html):
 
-```NEW_MESSAGE``` is the action type that will be dispatched to the store to update the current state, which is set by ```ALL_MESSAGES```. In the reducer ```ALL_MESSAGES``` state property of ```messages```. This removes the need for having ```NEW_MESSAGE``` in the reducer switch case and allows you to see the link between the two action types.
+```NEW_MESSAGE``` is the action type that will be dispatched to the store to update the current state, which is set by ```ALL_MESSAGES```. In the reducer ```ALL_MESSAGES``` controls the state property of ```messages```. This removes the need for having ```NEW_MESSAGE``` in the reducer switch case and allows you to see the link between the two action types.
 
-The three need arguments to be entered into the ```combine``` function in the correct order.
+The three arguments need to be entered into the ```combine``` function in the correct order.
 1. Action type that will have payload to be added
-2. Action type that will have value added on to
-3. Property on reducer that will be looking to update
+2. Action type that will have value added on to via the reducer
+3. Property on the state that will be updated
 
 ```js
 const NEW_MESSAGE = 'NEW_MESSAGE';
@@ -82,27 +83,31 @@ const store = createStore(
 );
 ```
 
-//action creator must have action.payload...
+## Action Creators
 
-I could have made it to where it would take multiple things to be combined but, I want it to where only two, as you have to create a specific name for your middleware to then be plugged ins. As in newMessage, newItem etc...
+Any action creator meant for a combiner function must have the correct type, which is determined when the function is created. The action creator ***MUST*** have the property called ```payload``` for it to be read by the middleware. So naming within the action creator is very important.
 
-Showing how you can add a new message to an array of messages and a new item to an object of items.
+Below are some examples of how an actions should be created for ```redux-action-combiner```.
 
-This is how you create the middleware to be added to the createStore.
+```js
+//Note they both have the payload property!
+const newMessageAction = {
+  type: NEW_MESSAGE,
+  payload: 'baz'
+}
 
-const GET_MESSAGES = 'GET_MESSAGES';
-const NEW_MESSAGE = 'NEW_MESSAGE';
-const messages = 'messages';
+const newItemAction = {
+  type: NEW_ITEM,
+  payload: { test: 'case' }
+}
+```
 
-const addMessage = combineActions(NEW_MESSAGE, GET_MESSAGES, messages);
+## Additional Information
 
-The combine actions function takes three arguments. First, the action creator that will be updating/adding a specific element to the state, the second being the action creator that retreieves all of those items. Third, the specific property on the state that you will be wanting to update.
-So you add a NEW_MESSAGE and GET_MESSAGES is capable of retrieving all the messages, by updating the property of 'messages' on the state.
+Redux Action Combiner is made to take only one linkage at a time. So for multiple links, multiple functions would need to be created from the combiner function. This is so the linkage can be more visable. Those functions can then be plugged into ```applyMiddleware```.
 
-If you send an array, it would add that value to the array, as nested.
+Requires specific initial state of an empty array or object. This depends whether one is working with adding to arrays or objects.
 
-It's different with objects. Sending an object with a property and value will only add it to the linked one you're attempting to update.
+## License
 
-Need to take into account if you're combining reducers. As that changes the properties that you'd be accessing.
-
-Requires specific initial state of an empty array or object.
+ISC
