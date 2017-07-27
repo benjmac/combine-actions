@@ -7,7 +7,7 @@ Redux Action Combiner works seamlessly along side other middeware.
 
 ## Why use Redux Action Combiner?
 
-It makes linking and updating state easier and more logical than ever. Of course this isn't for all instances. It assumes you will be wanting to add to the same type from the original
+It makes linking and updating state easier and more logical than ever before. Of course this isn't for all instances. It assumes you will be wanting to add to the same type from the original
 state. For example, a new value in an array or a new key and value to an object.
 
 Below are a few examples showing the current state type and what would need to be added.
@@ -48,8 +48,8 @@ const messages = 'messages';
 const addMessage = combine(NEW_MESSAGE, ALL_MESSAGES, messages);
 
 // Note: this API requires redux@>=3.1.0
-// Note: initial state needs to be an object or array, depending which type being used
-//will work with nested state from combineReducers as well
+// Note: initial state needs to be an object or array, depending which type is being used
+// Note: will work with nested state from combineReducers as well
 const store = createStore(
   rootReducer,
   applyMiddleware(addMessage)
