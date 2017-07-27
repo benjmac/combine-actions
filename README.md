@@ -1,7 +1,7 @@
 # redux-action-combiner
 
 ## About
-Redux Action Combiner [middleware](https://github.com/reactjs/redux/blob/master/docs/advanced/Middleware.md) is meant to create a link between two pieces of state and to clean up the reducer of unnecessary cases. It also allows you to visually connect two actions, making it easier for you and others to follow the flow of the action creators / state.
+Redux Action Combiner [middleware](https://github.com/reactjs/redux/blob/master/docs/advanced/Middleware.md) is meant to create a link between two pieces of state and to clean up the reducer of unnecessary cases. It also allows one to visually connect two actions, making it easier to follow the flow of the action creators / state.
 
 Redux Action Combiner works seamlessly along side other middeware.
 
@@ -58,11 +58,11 @@ const store = createStore(
 
 As seen above the middleware function needs to be invoked with the correct arguments. Then the returned function is plugged into [`applyMiddleware()`](http://redux.js.org/docs/api/applyMiddleware.html):
 
-```NEW_MESSAGE``` is the action type that will be dispatched to the store to update the current state, which is set by ```ALL_MESSAGES```. In the reducer ```ALL_MESSAGES``` controls the state property of ```messages```. This removes the need for having ```NEW_MESSAGE``` in the reducer switch case and allows you to see the link between the two action types.
+```NEW_MESSAGE``` is the action type that will be dispatched to the store to update the current state, which is set by ```ALL_MESSAGES```. In the reducer ```ALL_MESSAGES``` controls the state property of ```messages```. This removes the need for having ```NEW_MESSAGE``` in the reducer switch case and allows one to see the link between the two action types.
 
 The three arguments need to be entered into the ```combine``` function in the correct order.
 1. Action type that will have payload to be added
-2. Action type that will have value added on to via the reducer
+2. Action type that will have value added via the reducer
 3. Property on the state that will be updated
 
 ```js
@@ -74,7 +74,7 @@ const addMessage = combine(NEW_MESSAGE, ALL_MESSAGES, messages);
 
 ```
 From there you can plug in the returned middleware function to the store.
-Feel free to use ```combineReducers```, as the nested state won't create any issues
+Feel free to use ```combineReducers```, as the nested state won't create any issues.
 
 ```js
 const store = createStore(
