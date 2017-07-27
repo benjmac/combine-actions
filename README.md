@@ -54,6 +54,18 @@ const store = createStore(
 );
 ```
 
+As seen above the middleware function needs to be invoked with the correct arguements. Then the returned function is plugged into [`applyMiddleware()`](http://redux.js.org/docs/api/applyMiddleware.html):
+
+```js
+const GET_MESSAGES = 'GET_MESSAGES';
+const NEW_MESSAGE = 'NEW_MESSAGE';
+const messages = 'messages';
+
+const addMessage = combine(NEW_MESSAGE, GET_MESSAGES, messages);
+
+```
+
+
 //action creator must have action.payload...
 
 I could have made it to where it would take multiple things to be combined but, I want it to where only two, as you have to create a specific name for your middleware to then be plugged ins. As in newMessage, newItem etc...
