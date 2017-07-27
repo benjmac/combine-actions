@@ -48,17 +48,18 @@ const messages = 'messages';
 const addMessage = combine(NEW_MESSAGE, ALL_MESSAGES, messages);
 
 // Note: this API requires redux@>=3.1.0
+//will work with nested state from combineReducers as well
 const store = createStore(
   rootReducer,
   applyMiddleware(addMessage)
 );
 ```
 
-As seen above the middleware function needs to be invoked with the correct arguements. Then the returned function is plugged into [`applyMiddleware()`](http://redux.js.org/docs/api/applyMiddleware.html):
+As seen above the middleware function needs to be invoked with the correct arguments. Then the returned function is plugged into [`applyMiddleware()`](http://redux.js.org/docs/api/applyMiddleware.html):
 
-```NEW_MESSAGE``` is the action type that will be dispatched to the store to update the current state, which is set by ```ALL_MESSAGES```. The state on the reducer that ```ALL_MESSAGES``` updates the one within the variable ```messages```.
+```NEW_MESSAGE``` is the action type that will be dispatched to the store to update the current state, which is set by ```ALL_MESSAGES```. In the reducer ```ALL_MESSAGES``` state property of ```messages```. This removes the need for having ```NEW_MESSAGE``` in the reducer switch case and allows you to see the link between the two action types.
 
-The three need to be entered into the ```combine``` function in the correct order.
+The three need arguments to be entered into the ```combine``` function in the correct order.
 1. Action type that will have payload to be added
 2. Action type that will have value added on to
 3. Property on reducer that will be looking to update
@@ -71,7 +72,15 @@ const messages = 'messages';
 const addMessage = combine(NEW_MESSAGE, ALL_MESSAGES, messages);
 
 ```
+From there you can plug in the returned middleware function to the store.
+Feel free to use ```combineReducers```, as the nested state won't create any issues
 
+```js
+const store = createStore(
+  rootReducer,
+  applyMiddleware(addMessage)
+);
+```
 
 //action creator must have action.payload...
 
