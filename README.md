@@ -41,11 +41,11 @@ import { createStore, applyMiddleware } from 'redux';
 import combiner from 'redux-action-combiner';
 import rootReducer from './reducers/index';
 
-const GET_MESSAGES = 'GET_MESSAGES';
 const NEW_MESSAGE = 'NEW_MESSAGE';
+const ALL_MESSAGES = 'GET_MESSAGES';
 const messages = 'messages';
 
-const addMessage = combine(NEW_MESSAGE, GET_MESSAGES, messages);
+const addMessage = combine(NEW_MESSAGE, ALL_MESSAGES, messages);
 
 // Note: this API requires redux@>=3.1.0
 const store = createStore(
@@ -56,12 +56,19 @@ const store = createStore(
 
 As seen above the middleware function needs to be invoked with the correct arguements. Then the returned function is plugged into [`applyMiddleware()`](http://redux.js.org/docs/api/applyMiddleware.html):
 
+```NEW_MESSAGE``` is the action type that will be dispatched to the store to update the current state, which is set by ```ALL_MESSAGES```. The state on the reducer that ```ALL_MESSAGES``` updates the one within the variable ```messages```.
+
+The three need to be entered into the ```combine``` function in the correct order.
+1. Action type that will have payload to be added
+2. Action type that will have value added on to
+3. Property on reducer that will be looking to update
+
 ```js
-const GET_MESSAGES = 'GET_MESSAGES';
 const NEW_MESSAGE = 'NEW_MESSAGE';
+const ALL_MESSAGES = 'ALL_MESSAGES';
 const messages = 'messages';
 
-const addMessage = combine(NEW_MESSAGE, GET_MESSAGES, messages);
+const addMessage = combine(NEW_MESSAGE, ALL_MESSAGES, messages);
 
 ```
 
