@@ -13,7 +13,7 @@ state. For example, a new value in an array or a new key and value to an object.
 Below are a few examples showing the current state type and what would need to be added.
 
 Array Example:
-```
+```js
 current state: ['foo', 'bar']
 action payload: 'baz'
 
@@ -21,7 +21,7 @@ next state: ['foo', 'bar', 'baz']
 ```
 
 Object Example:
-```
+```js
 current state: { soap: 1.99, soda: 1.55, jam: 3.99 }
 action payload: { milk: 2.25 }
 
@@ -38,7 +38,7 @@ Then, to enable Redux Action Combiner, use [`applyMiddleware()`](http://redux.js
 
 ```js
 import { createStore, applyMiddleware } from 'redux';
-import combiner from 'redux-action-combiner';
+import combine from 'redux-action-combiner';
 import rootReducer from './reducers/index';
 
 const NEW_MESSAGE = 'NEW_MESSAGE';

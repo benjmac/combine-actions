@@ -1,6 +1,6 @@
 {
   "name": "redux-action-combiner",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "combining related actions",
   "main": "src/index.js",
   "files": [
