@@ -7,30 +7,58 @@ Redux Action Combiner works seamlessly along side other middeware.
 
 ## Why use Redux Action Combiner?
 
-It makes linking and updating state easier and more logical than ever. Of course this isn't for all instances. It assumes you will be wanting to add to the same type on the original
-state. For example, a new value in an array or a new key and value in an object.
+It makes linking and updating state easier and more logical than ever. Of course this isn't for all instances. It assumes you will be wanting to add to the same type from the original
+state. For example, a new value in an array or a new key and value to an object.
 
-Below are a few examples. Showing how you can add a new message to an array of messages and a new item to an object of items.
+Below are a few examples showing the current state type and the what would need to be added.
 
 Array Example:
 ```
 current state: ['foo', 'bar']
 action payload: 'baz'
+
+next state: ['foo', 'bar', 'baz']
 ```
 
 Object Example:
 ```
 current state: { soap: 1.99, soda: 1.55, jam: 3.99 }
 action payload: { milk: 2.25 }
+
+next state: { soap: 1.99, soda: 1.55, jam: 3.99, milk: 2.25 }
 ```
 
 ## Installation and Setup
 
-A list of items in an object, adding a new item to that object.
+```
+npm install --save redux-action-combiner
+```
+
+Then, to enable Redux Action Combiner, use [`applyMiddleware()`](http://redux.js.org/docs/api/applyMiddleware.html):
+
+```js
+import { createStore, applyMiddleware } from 'redux';
+import combiner from 'redux-action-combiner';
+import rootReducer from './reducers/index';
+
+const GET_MESSAGES = 'GET_MESSAGES';
+const NEW_MESSAGE = 'NEW_MESSAGE';
+const messages = 'messages';
+
+const addMessage = combine(NEW_MESSAGE, GET_MESSAGES, messages);
+
+// Note: this API requires redux@>=3.1.0
+const store = createStore(
+  rootReducer,
+  applyMiddleware(addMessage)
+);
+```
 
 //action creator must have action.payload...
 
 I could have made it to where it would take multiple things to be combined but, I want it to where only two, as you have to create a specific name for your middleware to then be plugged ins. As in newMessage, newItem etc...
+
+Showing how you can add a new message to an array of messages and a new item to an object of items.
 
 This is how you create the middleware to be added to the createStore.
 
